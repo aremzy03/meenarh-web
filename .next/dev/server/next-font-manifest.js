@@ -1,1 +1,1 @@
-self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/home/aremzy03/Document/cursor_projects/meenarh/meenarh-web/app/layout\":[\"static/media/1f3fe8c6df3d47c1-s.p.woff2\",\"static/media/904be59b21bd51cb-s.p.woff2\",\"static/media/443896d591e4f761-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{},\"appUsingSizeAdjust\":false,\"pagesUsingSizeAdjust\":false}"

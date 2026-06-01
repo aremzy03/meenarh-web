@@ -10,6 +10,7 @@ import { authApi } from "@/lib/api/auth";
 import { getApiErrorDetails, type ParsedApiError } from "@/lib/errors/apiError";
 import { useAuthStore } from "@/lib/store/authStore";
 import { safeRedirect } from "@/lib/auth/safeRedirect";
+import { setPostAuthRedirect } from "@/lib/auth/postAuthRedirect";
 
 export const dynamic = "force-dynamic";
 
@@ -47,8 +48,21 @@ function LoginForm() {
       const response = await authApi.login(formData);
 
       if (response.success) {
-        setAuth(response.data.user);
-        router.push(safeRedirect(nextParam) ?? "/dashboard");
+        const user = response.data.user;
+        setAuth(user);
+
+        const redirect = safeRedirect(nextParam);
+        const needsVerification =
+          user.email_verification_enforced !== false && !user.is_email_verified;
+
+        if (needsVerification) {
+          if (redirect) {
+            setPostAuthRedirect(redirect);
+          }
+          router.push("/dashboard/verify-email");
+        } else {
+          router.push(redirect ?? "/dashboard");
+        }
       } else {
         setErrorDetails({ message: response.message || "Login failed" });
       }
